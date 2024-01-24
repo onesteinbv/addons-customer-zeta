@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="job_filter_by_label_category" inherit_id="website_hr_recruitment.index" active="False"
+              name="Filter by Label">
+        <xpath expr="//div[@id='jobs_grid_left']/parent::div" position="before">
+            <div>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#filter" role="button"
+                   aria-expanded="false" aria-controls="filter">
+                    <i class="fa fa-filter" aria-hidden="true" />Filter
+                </a>
+            </div>
+            <div class="collapse" id="filter">
+                <div class="card card-body">
+                    <t t-foreach="labels_split_up" t-as="label">
+                        <b><span t-esc="label['category']['name']" /></b>
+                        <t t-foreach="label['children']" t-as="child">
+                            <p><span t-esc="child['label']['name']" /> (<span t-esc="child['count']" />)</p>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
