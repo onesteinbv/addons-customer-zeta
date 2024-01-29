@@ -7,11 +7,16 @@
     "author": "Onestein",
     "website": "https://onestein.nl",
     "category": "Human Resources/Recruitment",
-    "version": "16.0.1.0.4",
+    "version": "16.0.1.0.7",
     "license": "AGPL-3",
     "depends": ["web_hr_recruitment_label"],
     "data": [
         "views/website_hr_recruitment_zeta_templates.xml",
         "views/snippets.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "/web_hr_recruitment_zeta/static/src/js/job_filter.js",
+        ]
+    },
 }

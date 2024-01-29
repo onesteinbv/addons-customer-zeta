@@ -33,13 +33,20 @@ class WebsiteHrRecruitmentZeta(WebsiteHrRecruitment):
         jobs = context["jobs"]
         _logger.info(label_filtered_ids)
         _logger.info(kwargs)
+
         if label_filtered_ids:
-            _logger.info(label_filtered_ids)
-            for job in jobs:
-                _logger.info(set(label_filtered_ids).issubset(job.label_ids.ids))
-            jobs = jobs.filtered(
-                lambda r: set(label_filtered_ids).issubset(r.label_ids.ids)
-            )
+            label_ids = env["hr.job.label"].browse(label_filtered_ids)
+            for cat in label_ids.category_id:
+                cat_label_ids = label_ids.filtered(lambda r: r.category_id == cat)
+                remaining_jobs = []
+                for job in jobs:
+                    if set(cat_label_ids.ids) & set(job.label_ids.ids):
+                        remaining_jobs.append(job)
+                        # _logger.info(label_filtered_ids)
+            #     _logger.info(set(label_filtered_ids).issubset(job.label_ids.ids))
+            # jobs = jobs.filtered(
+            #     lambda r: set(label_filtered_ids).issubset(r.label_ids.ids)
+            # )
         label_split_up = []
         categories = env["hr.job.label.category"].search([])
         _logger.info(categories)
@@ -51,7 +58,9 @@ class WebsiteHrRecruitmentZeta(WebsiteHrRecruitment):
             cat_dict = {"category": cat}
             amount_of_labels_used = 0
             children = []
-            for label in cat.label_ids:
+            for label in cat.label_ids.sorted(key=lambda r: r.sequence):
+                _logger.info("_______")
+                _logger.info(label)
                 if all_jobs.filtered(lambda r: label in r.label_ids):
                     amount_of_labels_used += 1
                     children.append(

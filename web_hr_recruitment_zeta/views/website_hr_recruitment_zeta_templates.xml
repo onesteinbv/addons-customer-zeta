@@ -14,7 +14,10 @@
                     <t t-foreach="labels_split_up" t-as="label">
                         <b><span t-esc="label['category']['name']" /></b>
                         <t t-foreach="label['children']" t-as="child">
-                            <p><span t-esc="child['label']['name']" /> (<span t-esc="child['count']" />)</p>
+                            <p>
+                                <input type="checkbox" class="filter_label" t-att-id="child['label'].id"><span t-esc="child['label']['name']" />
+                                    (<span t-esc="child['count']" />)</input>
+                            </p>
                         </t>
                     </t>
                 </div>
