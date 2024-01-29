@@ -34,11 +34,11 @@ class WebsiteHrRecruitmentZeta(WebsiteHrRecruitment):
         _logger.info(label_filtered_ids)
         _logger.info(kwargs)
 
+        remaining_jobs = []
         if label_filtered_ids:
             label_ids = env["hr.job.label"].browse(label_filtered_ids)
             for cat in label_ids.category_id:
                 cat_label_ids = label_ids.filtered(lambda r: r.category_id == cat)
-                remaining_jobs = []
                 for job in jobs:
                     if set(cat_label_ids.ids) & set(job.label_ids.ids):
                         remaining_jobs.append(job)
@@ -76,5 +76,7 @@ class WebsiteHrRecruitmentZeta(WebsiteHrRecruitment):
             _logger.info(cat_dict)
 
         _logger.info(label_split_up)
-        res.qcontext.update({"jobs": jobs, "labels_split_up": label_split_up})
+        res.qcontext.update(
+            {"jobs": remaining_jobs or jobs, "labels_split_up": label_split_up}
+        )
         return res

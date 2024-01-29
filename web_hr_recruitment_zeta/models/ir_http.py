@@ -16,13 +16,9 @@ class ModelsConverter(ir_http.ModelsConverter):
     #     self.regex = r'([0-9,]+)'
 
     def to_python(self, value):
-        if len(value) > 10:
-            raise ValueError()
         return [int(x) for x in value.split(",")]
 
     def to_url(self, value):
-        if len(value) > 10:
-            raise ValueError()
         return ",".join([str(i) for i in value])
 
 
