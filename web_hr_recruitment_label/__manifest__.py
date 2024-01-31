@@ -7,7 +7,7 @@
     "author": "Onestein",
     "website": "https://onestein.nl",
     "category": "Human Resources/Recruitment",
-    "version": "16.0.1.0.12",
+    "version": "16.0.1.0.14",
     "license": "AGPL-3",
     "depends": ["hr_recruitment_label", "website_hr_recruitment"],
     "data": [

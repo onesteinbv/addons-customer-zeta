@@ -52,7 +52,6 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
 
         context = res.qcontext
         jobs = context["jobs"]
-
         remaining_jobs = jobs
         if label_filtered_ids:
             label_ids = env["hr.job.label"].browse(label_filtered_ids)
