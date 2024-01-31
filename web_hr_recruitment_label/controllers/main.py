@@ -75,12 +75,16 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
             amount_of_labels_used = 0
             children = []
             for label in cat.label_ids.sorted(key=lambda r: r.sequence):
-                if all_jobs.filtered(lambda r: label in r.label_ids):
+                if all_jobs.filtered(lambda r: label in r.label_ids and r.is_published):
                     amount_of_labels_used += 1
                     children.append(
                         {
                             "label": label,
-                            "count": len(jobs.filtered(lambda r: label in r.label_ids)),
+                            "count": len(
+                                jobs.filtered(
+                                    lambda r: label in r.label_ids and r.is_published
+                                )
+                            ),
                         }
                     )
             if amount_of_labels_used >= 2:
