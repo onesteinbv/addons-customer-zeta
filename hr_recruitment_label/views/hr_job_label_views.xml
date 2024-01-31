@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-
         <record id="hr_job_label_tree_view" model="ir.ui.view">
             <field name="name">hr_recruitment_label.hr_job_label.tree</field>
             <field name="model">hr.job.label</field>
@@ -43,5 +40,4 @@
                   parent="hr_recruitment.menu_hr_recruitment_config_jobs"
                   action="hr_job_label_act_window"/>
 
-    </data>
 </odoo>

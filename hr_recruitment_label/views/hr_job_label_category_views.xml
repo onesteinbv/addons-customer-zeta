@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-
-        <record id="hr_job_label_categopr_tree_view" model="ir.ui.view">
-            <field name="name">hr_recruitment_label.hr_job_label_categopr.tree</field>
+        <record id="hr_job_label_category_tree_view" model="ir.ui.view">
+            <field name="name">hr_recruitment_label.hr_job_label_category.tree</field>
             <field name="model">hr.job.label.category</field>
             <field name="arch" type="xml">
                 <tree editable="top">
@@ -15,8 +12,8 @@
         </record>
 
 
-        <record id="hr_job_label_categopr_search_view" model="ir.ui.view">
-            <field name="name">hr_recruitment_label.hr_job_label_categopr.search</field>
+        <record id="hr_job_label_category_search_view" model="ir.ui.view">
+            <field name="name">hr_recruitment_label.hr_job_label_category.search</field>
             <field name="model">hr.job.label.category</field>
             <field name="arch" type="xml">
                 <search string="Job Labels">
@@ -26,7 +23,7 @@
         </record>
 
 
-        <record id="hr_job_label_categopr_act_window" model="ir.actions.act_window">
+        <record id="hr_job_label_category_act_window" model="ir.actions.act_window">
             <field name="name">Label Categories</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.job.label.category</field>
@@ -34,9 +31,8 @@
         </record>
 
         <menuitem name="Label Categories"
-                  id="hr_job_label_categopr_menu"
+                  id="hr_job_label_category_menu"
                   parent="hr_recruitment.menu_hr_recruitment_config_jobs"
-                  action="hr_job_label_categopr_act_window"/>
+                  action="hr_job_label_category_act_window"/>
 
-    </data>
 </odoo>

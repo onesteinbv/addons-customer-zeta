@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": ["hr_recruitment_label", "website_hr_recruitment"],
     "data": [
+        "views/hr_job_label_category_views.xml",
         "views/website_hr_recruitment_label_templates.xml",
         "views/snippets.xml",
     ],

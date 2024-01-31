@@ -65,7 +65,9 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
                 remaining_jobs = final_jobs
 
         label_split_up = []
-        categories = env["hr.job.label.category"].search([])
+        categories = env["hr.job.label.category"].search(
+            [("allow_filtering", "=", True)]
+        )
         all_jobs = env["hr.job"].search([])
         for cat in categories:
             if not cat.label_ids:
