@@ -17,8 +17,7 @@ def job_routes():
         '/department/<model("hr.department"):department>',
         "/office/<int:office_id>",
         "/employment_type/<int:contract_type_id>",
-        "/label/<int:label_id>",
-        # "/label/<models('hr.job.label'):label_filtered_ids>",
+        "/label_ids/<models('hr.job.label'):label_filtered_ids>",
     ]
     routes = ["/jobs"]
     for L in range(len(filters) + 1):
@@ -41,7 +40,7 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
         department=None,
         office_id=None,
         contract_type_id=None,
-        label_id=None,
+        label_filtered_ids=None,
         **kwargs
     ):
         res = super(WebsiteHrRecruitmentLabel, self).jobs(
@@ -52,10 +51,42 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
         )
 
         context = res.qcontext
-        labels = env["hr.job"].search([("label_ids", "!=", False)]).label_ids
         jobs = context["jobs"]
-        if label_id:
-            jobs = [j for j in jobs if j.label_ids and label_id in j.label_ids.ids]
 
-        res.qcontext.update({"jobs": jobs, "labels": labels, "label_id": label_id})
+        remaining_jobs = jobs
+        if label_filtered_ids:
+            label_ids = env["hr.job.label"].browse(label_filtered_ids)
+            for cat in label_ids.category_id:
+                final_jobs = set()
+                cat_label_ids = label_ids.filtered(lambda r: r.category_id == cat)
+                for job in remaining_jobs:
+                    if set(cat_label_ids.ids) & set(job.label_ids.ids):
+                        final_jobs.add(job)
+                remaining_jobs = final_jobs
+
+        label_split_up = []
+        categories = env["hr.job.label.category"].search([])
+        all_jobs = env["hr.job"].search([])
+        for cat in categories:
+            if not cat.label_ids:
+                continue
+            cat_dict = {"category": cat}
+            amount_of_labels_used = 0
+            children = []
+            for label in cat.label_ids.sorted(key=lambda r: r.sequence):
+                if all_jobs.filtered(lambda r: label in r.label_ids):
+                    amount_of_labels_used += 1
+                    children.append(
+                        {
+                            "label": label,
+                            "count": len(jobs.filtered(lambda r: label in r.label_ids)),
+                        }
+                    )
+            if amount_of_labels_used >= 2:
+                cat_dict["children"] = children
+                label_split_up.append(cat_dict)
+
+        res.qcontext.update(
+            {"jobs": list(remaining_jobs) or jobs, "labels_split_up": label_split_up}
+        )
         return res

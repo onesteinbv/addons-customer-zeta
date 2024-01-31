@@ -12,6 +12,9 @@
     "depends": [
         "hr_recruitment",
     ],
+    "demo": [
+        "data/hr_recruitment_label_demo.xml",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/hr_job_label_category_views.xml",

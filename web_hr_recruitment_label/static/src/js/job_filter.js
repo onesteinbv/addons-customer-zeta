@@ -1,4 +1,4 @@
-odoo.define("web_hr_recruitment_zeta.job_filter", function(require) {
+odoo.define("web_hr_recruitment_label.job_filter", function(require) {
     "use strict";
 
     //    Var ajax = require("web.ajax");

@@ -35,10 +35,10 @@ class WebsiteHrRecruitmentZeta(WebsiteHrRecruitment):
         _logger.info(kwargs)
 
         remaining_jobs = jobs
-        final_jobs = set()
         if label_filtered_ids:
             label_ids = env["hr.job.label"].browse(label_filtered_ids)
             for cat in label_ids.category_id:
+                final_jobs = set()
                 cat_label_ids = label_ids.filtered(lambda r: r.category_id == cat)
                 for job in remaining_jobs:
                     if set(cat_label_ids.ids) & set(job.label_ids.ids):

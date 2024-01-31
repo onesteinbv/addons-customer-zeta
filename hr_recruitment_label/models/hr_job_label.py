@@ -9,7 +9,7 @@ class HrJobLabel(models.Model):
     _order = "sequence,category_id"
     _rec_name = "rec_name"
 
-    rec_name = fields.Char(compute="_compute_rec_name")
+    rec_name = fields.Char(compute="_compute_rec_name", store=True)
 
     sequence = fields.Integer()
     category_id = fields.Many2one(comodel_name="hr.job.label.category", required=1)
