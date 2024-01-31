@@ -23,7 +23,8 @@ odoo.define("quatra_website.redirect", function (require) {
                 }
             }
         }
-   }
+    }
+
     for (var i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('change', function() {
         var ids="/label_ids/"
